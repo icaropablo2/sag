@@ -100,7 +100,7 @@ function SAG:update(dt)
 
 end
 
-function SAG:play(entity)
+function SAG:play()
 	--[[
 		Play the current animation
 
@@ -133,12 +133,7 @@ function SAG:play(entity)
 		self.current_frame = 1
 	end
 
-	love.graphics.draw(
-		entity.sprite,
-		clips[self.current_frame],
-		entity.x,
-		entity.y
-	)
+	return self.current_frame
 
 end
 
@@ -150,6 +145,17 @@ function SAG:setAnim(name)
 			name (string): clip's name
 	]]
 	self.anim = name
+end
+
+
+function SAG:setClips(clips)
+	for name, frames in pairs(clips) do
+		self:clip(name, frames)
+	end
+end
+
+function SAG:getClips()
+	return self.clips[self.anim]
 end
 
 function SAG:clip(name, frames)
